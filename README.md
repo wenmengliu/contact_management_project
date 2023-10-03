@@ -47,5 +47,4 @@ After starting the server, please use `yarn start` to start.
 ### Demo
 Here is the recording demo when running this project locally. 
 
-
-
+[Demo link](https://youtu.be/2bQeQT38v20)
