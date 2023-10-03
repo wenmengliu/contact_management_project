@@ -4,6 +4,7 @@ module.exports = {
   expiresIn: "1h", // Token expiration time (e.g., 1 hour)
   sampleUser: {
     username: "wenmeng",
+    email: "crliu@example.com",
     password: "helloWorld",
   },
 };

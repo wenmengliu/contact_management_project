@@ -27,7 +27,7 @@ const fetchContact = async (req, res) => {
     }
 
     // Send the partner data as a JSON response
-    res.status(200).json(partnerData);
+    res.status(200).json({ contacts: partnerData });
   } catch (error) {
     console.error("Error fetching data from the partner API:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -47,7 +47,25 @@ const createContact = async (req, res) => {
     // Create a new contact
     const newContact = new Contact({
       id: newId,
-      ...requestData,
+      name: requestData.name || "",
+      email: requestData.email || "",
+      address: {
+        street: "",
+        suite: "",
+        city: "",
+        zipcode: "",
+        geo: {
+          lat: "",
+          lng: "",
+        },
+      },
+      phone: requestData.phone || "",
+      website: requestData.website || "",
+      company: {
+        name: requestData.companyName || "",
+        catchPhrase: requestData.catchPhrase || "",
+        bs: requestData.bs || "",
+      },
     });
 
     // Save the new contact to the database
