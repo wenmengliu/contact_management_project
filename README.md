@@ -36,7 +36,14 @@ After running `yarn run dev` locally, you can test the endpoint in the postman. 
 ### Tech Stacks: React
 
 ### How to run
+
+### Running locally
 After starting the server, please use `yarn start` to start. 
+
+#### Building and deployment
+
+1. Go to the server project folder and then run `docker build -t my-node-client .`
+2. Start the docker image via running `docker run -p 3000:3000 my-node-client`
 
 ### Functionalities
 
