@@ -31,7 +31,7 @@ COPY . .
 
 # Create a shell script to start MongoDB and your Node.js application
 RUN echo "#!/bin/bash" >> start.sh && \
-    echo "mongod --dbpath /data/db" >> start.sh && \
+    echo "mongod --dbpath /data/db --fork --logpath /var/log/mongodb.log & sleep 10" >> start.sh && \
     echo "yarn run dev" >> start.sh && \
     chmod +x start.sh
 
