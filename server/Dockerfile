@@ -1,36 +1,39 @@
-# Stage 1: Build the Node.js application
-FROM node:14 as build
+# Use an official Node.js runtime as a parent image
+FROM node:14
 
+# Install nodemon globally using yarn
+RUN yarn global add nodemon
+
+# Set the working directory in the container
 WORKDIR /app
 
 # Copy package.json and yarn.lock to the working directory
 COPY package.json yarn.lock ./
 
-# Install Node.js dependencies using Yarn
+# Install Node.js dependencies using yarn
 RUN yarn install
+
+# Install MongoDB from the official MongoDB repository
+RUN apt-get update && apt-get install -y gnupg && \
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
+    echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \
+    apt-get update && apt-get install -y mongodb-org
+
+# Create a directory for MongoDB data
+RUN mkdir -p /data/db
+
+# Expose the ports for your Node.js application and MongoDB
+EXPOSE 3000
+EXPOSE 27017
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the Node.js application
-RUN yarn build
+# Create a shell script to start MongoDB and your Node.js application
+RUN echo "#!/bin/bash" >> start.sh && \
+    echo "mongod --dbpath /data/db" >> start.sh && \
+    echo "yarn run dev" >> start.sh && \
+    chmod +x start.sh
 
-# Stage 2: Set up MongoDB and run the application
-FROM node:14
-
-# Install MongoDB client
-RUN apt-get update && apt-get install -y mongodb-clients
-
-# Create a directory for the MongoDB data
-RUN mkdir -p /data/db
-
-# Expose the MongoDB default port
-EXPOSE 27017
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the built application from the previous stage
-COPY --from=build /app ./
-
-# Ex
+# Define the command to run the shell script
+CMD ["./start.sh"]
