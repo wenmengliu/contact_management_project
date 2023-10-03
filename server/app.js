@@ -5,6 +5,7 @@ const contactRoutes = require("./routes/contactRoutes");
 
 //middlewares
 app.use(express.json());
+app.use(require("cors")());
 
 //routes
 app.use("/api", contactRoutes);
