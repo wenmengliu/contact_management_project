@@ -57,6 +57,10 @@ After starting the server, please use `yarn start` to start.
   "password": "helloWorld"
 }
 ```
+### Build and deploy the project 
+
+1. If you want to build the frontend and backend altogether, go to the project root folder and then run `docker-compose up`.
+   
 ### Demo
 Here is the recording demo when running this project locally. 
 
