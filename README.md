@@ -7,8 +7,14 @@
 Build RESTful APIs Using Node, Express, and MongoDB
 
 ### How to run
+#### Running locally
 
 Run `yarn run dev` if you start locally after setting up MongoDB server on the local
+
+#### Building and deployment
+
+1. Go to the server project folder and then run `docker build -t my-node-mongodb-app .`
+2. Start the docker image via running `docker run -p 3000:3000 my-node-mongodb-app`
 
 ### Implemented 4 endpoints
 
